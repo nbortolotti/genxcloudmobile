@@ -40,8 +40,6 @@ def create_instance(compute, project, zone, name, package):
             ]
         },
 
-        # Specify a network interface with NAT to access the public
-        # internet.
         'networkInterfaces': [{
             'network': 'global/networks/default',
             'accessConfigs': [
@@ -49,9 +47,6 @@ def create_instance(compute, project, zone, name, package):
             ]
         }],
 
-
-
-        # Allow the instance to access cloud storage and logging.
         'serviceAccounts': [{
             'email': 'default',
             'scopes': [
@@ -68,9 +63,6 @@ def create_instance(compute, project, zone, name, package):
                 # instance upon startup.
                 'key': 'startup-script',
                 'value': startup_script
-            }, {
-                'key': 'url',
-                'value': 'image'#image_url
             }, {
                 'key': 'package',
                 'value': package
@@ -142,18 +134,17 @@ def run(project, zone, instance_name, package):
 
     raw_input()
 
-    print 'Deleting instance.'
+    print 'Deleting instance'
 
     operation = delete_instance(compute, project, zone, instance_name)
     wait_for_operation(compute, project, zone, operation['name'])
 
 
-
 def main():
     project = raw_input('project ID? ')
     zone = raw_input('zone? [us-central1-a] ') or 'us-central1-a'
-    instance_name = 'mobilevm1'
-    package = raw_input('paquete a utilizar ')
+    instance_name = raw_input('name? [mobilevm1] ') or 'mobilevm1'
+    package = raw_input('package to use [website] ') or 'Site3'
 
     run(project, zone, instance_name, package)
 
