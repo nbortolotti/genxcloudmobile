@@ -108,8 +108,6 @@ def wait_for_operation(compute, project, zone, operation):
             sys.stdout.flush()
             time.sleep(1)
 
-
-
 # START run
 def run(project, zone, instance_name, package):
     credentials = GoogleCredentials.get_application_default()
